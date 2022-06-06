@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -19,9 +20,21 @@
         <th>비고</th>
     </tr>
     </thead>
-    <tbody>
-
-    </tbody>
+    <%if (request.getAttribute("list") == null) {%>
+    <tr>
+        <td colspan="4">
+            아직 검색한 와이파이 정보가 없습니다.
+        </td>
+    </tr>
+    <%
+    } else {
+        for (String s : (ArrayList<String>) request.getAttribute("history")) {%>
+    <p><%=s%>
+    </p>
+    <%
+            }
+        }
+    %>
 </table>
 </body>
 </html>

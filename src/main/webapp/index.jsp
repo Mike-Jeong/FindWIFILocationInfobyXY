@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -7,16 +8,18 @@
 <body>
 <h1>와이파이 정보 구하기</h1>
 <div></div>
-<a href="./">홈</a> <span>|</span> <a href="./" methods="get">위치 히스토리 목록</a> <span>|</span> <a href="./" methods="get">Open API 와이파이 정보 가져오기</a>
+<a href="./">홈</a> <span>|</span> <a href="./" methods="get">위치 히스토리 목록</a> <span>|</span> <a href="./" methods="get">Open
+    API 와이파이 정보 가져오기</a>
 <form>
     <label>LAT: </label>
-    <input type = "text" name = "lat" required value="${param.q}"/>
+    <input type="text" name="lat" required value="${param.x}"/>
     <label>LNT: </label>
-    <input type = "text" name = "lnt" required value="${param.q}"/>
+    <input type="text" name="lnt" required value="${param.y}"/>
     <input type="submit" value="확인">
     <button type="button">내 위치 가져오기</button>
     <button type="button">근처 WIFI 정보 가져오기</button>
-</form>>
+</form>
+>
 <table>
     <thead>
     <tr>
@@ -39,9 +42,21 @@
         <th>작업</th>
     </tr>
     </thead>
-    <tbody>
-
-    </tbody>
+    <%if (request.getAttribute("list") == null) {%>
+    <tr>
+        <td colspan="17">
+            위치 정보를 입력한 후에 조회해 주세요.
+        </td>
+    </tr>
+    <%
+    } else {
+        for (String s : (ArrayList<String>) request.getAttribute("list")) {%>
+    <p><%=s%>
+    </p>
+    <%
+            }
+        }
+    %>
 </table>
 </body>
 </html>
