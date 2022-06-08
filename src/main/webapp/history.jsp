@@ -8,7 +8,7 @@
 <body>
 <h1>위치 히스토리 목록</h1>
 <div></div>
-<a href="./">홈</a> <span>|</span> <a href="./" methods="get">위치 히스토리 목록</a> <span>|</span> <a href="./" methods="get">Open API 와이파이 정보 가져오기</a>
+<a href="./">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadwifi">Open API 와이파이 정보 가져오기</a>
 
 <table>
     <thead>
@@ -20,7 +20,7 @@
         <th>비고</th>
     </tr>
     </thead>
-    <%if (request.getAttribute("list") == null) {%>
+    <%if (request.getAttribute("historylist") == null) {%>
     <tr>
         <td colspan="4">
             아직 검색한 와이파이 정보가 없습니다.
