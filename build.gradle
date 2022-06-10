@@ -23,9 +23,10 @@ tasks.withType(JavaCompile) {
 
 dependencies {
   compileOnly('javax.servlet:javax.servlet-api:4.0.1')
-
+  implementation fileTree(dir: 'libs/', includes: ['*.jar'])
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
 }
 
 test {

@@ -10,7 +10,7 @@
 <div></div>
 <a href="./">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadwifi">Open API 와이파이 정보 가져오기</a>
 
-<table>
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -28,9 +28,12 @@
     </tr>
     <%
     } else {
-        for (String s : (ArrayList<String>) request.getAttribute("history")) {%>
-    <p><%=s%>
-    </p>
+        for (String s : (ArrayList<String>) request.getAttribute("historylist")) {%>
+    <tr>
+        <td colspan="5">
+            <%=s%>
+        </td>
+    </tr>
     <%
             }
         }

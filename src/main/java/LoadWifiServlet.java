@@ -45,8 +45,25 @@ public class LoadWifiServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
-        out.println("<h1>" + count + "개의 WIFI 정보를 정상적으로 저장하셨습니다." + "</h1>");
-        out.println("<a href=\"./\">홈</a>");
+        out.println("<style>\n" +
+                "    #wrapper{\n" +
+                "        width:300px;\n" +
+                "        margin:auto;\n" +
+                "    }\n" +
+                "    #txtContact{\n" +
+                "        width:fit-content;\n" +
+                "        margin:auto;\n" +
+                "    }\n" +
+                "    #home{\n" +
+                "        width:100px;\n" +
+                "        margin:auto;\n" +
+                "        display:block;\n" +
+                "    }\n" +
+                "</style>");
+        out.println("<div id=\"wrapper\">");
+        out.println("<h1 id=\"txtContact\">" + count + "개의 WIFI 정보를 정상적으로 저장하셨습니다." + "</h1>");
+        out.println("<a id=\"home\" href=\"./\">홈</a>");
+        out.println("</div>");
         out.println("</body></html>");
     }
 

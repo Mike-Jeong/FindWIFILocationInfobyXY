@@ -11,15 +11,14 @@
 <a href="./">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadwifi">Open API 와이파이 정보 가져오기</a>
 <form>
     <label>LAT: </label>
-    <input type="text" name="lat" required value="${param.x}"/>
+    <input type="text" name="lat" placeholder="0.0" required value="${param.x}"/>
     <label>LNT: </label>
-    <input type="text" name="lnt" required value="${param.y}"/>
-    <input type="submit" value="확인">
+    <input type="text" name="lnt" placeholder="0.0" required value="${param.y}"/>
     <button type="button">내 위치 가져오기</button>
-    <button type="button">근처 WIFI 정보 가져오기</button>
+    <input type="submit" value="근처 WIFI 정보 가져오기"/>
 </form>
->
-<table>
+
+<table border = "1">
     <thead>
     <tr>
         <th>거리(KM)</th>
@@ -31,14 +30,14 @@
         <th>설치위치(층)</th>
         <th>설치유형</th>
         <th>설치기관</th>
-        <th>서비스</th>
+        <th>서비스구분</th>
         <th>망종류</th>
         <th>설치년도</th>
         <th>실내외구분</th>
         <th>WIFI접속환경</th>
-        <th>Y좌표</th>
         <th>X좌표</th>
-        <th>작업</th>
+        <th>Y좌표</th>
+        <th>작업일자</th>
     </tr>
     </thead>
     <%if (request.getAttribute("list") == null) {%>
@@ -50,8 +49,11 @@
     <%
     } else {
         for (String s : (ArrayList<String>) request.getAttribute("list")) {%>
-    <p><%=s%>
-    </p>
+    <tr>
+        <td colspan="17">
+            <%=s%>
+        </td>
+    </tr>
     <%
             }
         }

@@ -24,15 +24,18 @@ public class MainPageServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 
-        String x = request.getParameter("x");
-        String y = request.getParameter("y");
+        String x = request.getParameter("lat");
+        String y = request.getParameter("lnt");
+        System.out.println("?");
 
         if (x == null) {
+            System.out.println("!!");
             request.getRequestDispatcher("/wifimain.jsp").forward(request, response);
 
         } else {
 
             ArrayList<String> s = new ArrayList<>();
+            System.out.println("??");
 
             Connection conn = cm.getDBCP();
 
@@ -52,7 +55,7 @@ public class MainPageServlet extends HttpServlet {
                     String a4 = rs.getString("X_SWIFI_ADRES1");
                     String a5 = rs.getString("X_SWIFI_ADRES2");
                     String a6 = rs.getString("X_SWIFI_INSTL_FLOOR");
-                    String a7 = rs.getString("X_SWIFI_INSTL_TYX_SWIFI_INSTL_TY");
+                    String a7 = rs.getString("X_SWIFI_INSTL_TY");
                     String a8 = rs.getString("X_SWIFI_INSTL_MBY");
                     String a9 = rs.getString("X_SWIFI_SVC_SE");
                     String a10 = rs.getString("X_SWIFI_CMCWR");
@@ -76,7 +79,8 @@ public class MainPageServlet extends HttpServlet {
 
             try {
                 request.setAttribute("list", s);
-                request.getRequestDispatcher("/wifimain.jsp").forward(request, response);
+                System.out.println("???");
+                request.getRequestDispatcher("wifimain.jsp").forward(request, response);
             } catch (NumberFormatException e) {
                 PrintWriter out = response.getWriter();
                 out.println("<script>alert('오류');</script>");
