@@ -22,20 +22,27 @@
     </thead>
     <%if (request.getAttribute("historylist") == null) {%>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             아직 검색한 와이파이 정보가 없습니다.
         </td>
     </tr>
     <%
     } else {
+        int i = 1;
         for (String s : (ArrayList<String>) request.getAttribute("historylist")) {%>
     <tr>
-        <td colspan="5">
+        <td>
+            <%=i%>
+        </td>
+        <td colspan="4">
             <%=s%>
+        </td>
+        <td>
+            <button formmethod="post" name="delete" value="delete">삭제</button>
         </td>
     </tr>
     <%
-            }
+       i++;     }
         }
     %>
 </table>

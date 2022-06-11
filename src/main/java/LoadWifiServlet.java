@@ -41,13 +41,13 @@ public class LoadWifiServlet extends HttpServlet {
 
 
 
-        response.setContentType("text/html");
+        response.setContentType("text/html; charset=UTF-8");
 
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("<style>\n" +
                 "    #wrapper{\n" +
-                "        width:300px;\n" +
+                "        width:80%;\n" +
                 "        margin:auto;\n" +
                 "    }\n" +
                 "    #txtContact{\n" +
@@ -61,7 +61,7 @@ public class LoadWifiServlet extends HttpServlet {
                 "    }\n" +
                 "</style>");
         out.println("<div id=\"wrapper\">");
-        out.println("<h1 id=\"txtContact\">" + count + "개의 WIFI 정보를 정상적으로 저장하셨습니다." + "</h1>");
+        out.println("<h1 id=\"txtContact\">" + count + "개의 WIFI 정보를 정상적으로 저장하였습니다." + "</h1>");
         out.println("<a id=\"home\" href=\"./\">홈</a>");
         out.println("</div>");
         out.println("</body></html>");

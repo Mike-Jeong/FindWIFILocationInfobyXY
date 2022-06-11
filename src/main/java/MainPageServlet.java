@@ -30,7 +30,7 @@ public class MainPageServlet extends HttpServlet {
 
         if (x == null) {
             System.out.println("!!");
-            request.getRequestDispatcher("/wifimain.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
 
         } else {
 
@@ -46,6 +46,9 @@ public class MainPageServlet extends HttpServlet {
             }
 
             try {
+
+                stmt.executeUpdate("insert into history (LAT, LNT, Date )values(" + x + "," + y + ", NOW())");
+
                 rs = stmt.executeQuery("select * from wifi");
 
                 while (rs.next()) {
@@ -80,7 +83,7 @@ public class MainPageServlet extends HttpServlet {
             try {
                 request.setAttribute("list", s);
                 System.out.println("???");
-                request.getRequestDispatcher("wifimain.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (NumberFormatException e) {
                 PrintWriter out = response.getWriter();
                 out.println("<script>alert('오류');</script>");
