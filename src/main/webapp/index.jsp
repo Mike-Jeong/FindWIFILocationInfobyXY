@@ -4,12 +4,35 @@
 <html>
 <head>
     <title>와이파이 정보 구하기</title>
+    <style>
+        table, td, th {
+            border: 1px solid lightgrey;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+        td, th {
+            padding: 8px;
+
+        }
+        th{
+            background-color: #26ab71;
+            color: aliceblue;
+            font-size: 80%;
+        }
+        td{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<script type="text/javascript" src="JS/GetCurrentLoc.js"></script>
+<script type="text/javascript" src="JS/GetCurrentLoc.js?ver=1"></script>
 <h1>와이파이 정보 구하기</h1>
-<div></div>
+<p></p>
 <a href="./">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadwifi">Open API 와이파이 정보 가져오기</a>
+<p></p>
 <form action="/main">
     <label>LAT: </label>
     <input type="text" id="lat" name="lat" placeholder="0.0" required value="${param.lat}"/>
@@ -18,8 +41,7 @@
     <button type="button" onclick="getLocation()">내 위치 가져오기</button>
     <input type="submit" value="근처 WIFI 정보 가져오기"/>
 </form>
-
-<table border = "1 solid" width="100%">
+<table>
     <thead>
     <tr>
         <th>거리(KM)</th>
@@ -43,7 +65,7 @@
     </thead>
     <%if (request.getAttribute("list") == null) {%>
     <tr>
-        <td colspan="17" align = "center">
+        <td colspan="17">
             위치 정보를 입력한 후에 조회해 주세요.
         </td>
     </tr>
@@ -51,7 +73,7 @@
     } else {
         for (String s : (ArrayList<String>) request.getAttribute("list")) {%>
     <tr>
-        <td colspan="17" align = "center">
+        <td colspan="17">
             <%=s%>
         </td>
     </tr>
