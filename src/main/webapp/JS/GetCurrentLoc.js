@@ -1,15 +1,19 @@
-let x = 0;
-let y = 0;
 
 function getLocation() {
     navigator.geolocation.getCurrentPosition(sucess, fail);
 }
 
 function sucess(position) {
+
+    var x = 0;
+    var y = 0;
+
     x = position.coords.latitude;
     y = position.coords.longitude;
-    console.log(x);
-    console.log(y);
+
+    var time = position.timestamp;
+
+    console.log(time);
 
     document.getElementById("lat").setAttribute('value', x);
     document.getElementById("lnt").setAttribute('value', y);
