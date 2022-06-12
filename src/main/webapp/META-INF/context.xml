@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Resource name="jdbc/mysql" auth="Container"
+              type="javax.sql.DataSource" username="root" password="12345678"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost/WIFIINFO"
+              maxActive="5" maxIdle="3" maxWait="1000"/>
+</Context>
+
+
+
