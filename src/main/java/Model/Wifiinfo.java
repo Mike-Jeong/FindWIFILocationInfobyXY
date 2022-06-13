@@ -1,6 +1,7 @@
 package Model;
 
 public class Wifiinfo {
+    private String Distance;
     private String X_SWIFI_MGR_NO;
     private String X_SWIFI_WRDOFC;
     private String X_SWIFI_MAIN_NM;
@@ -14,12 +15,17 @@ public class Wifiinfo {
     private String X_SWIFI_CNSTC_YEAR;
     private String X_SWIFI_INOUT_DOOR;
     private String X_SWIFI_REMARS3;
+    private String LAT;
+    private String LNT;
+    private String WORK_DTTM;
 
-    public Wifiinfo(String X_SWIFI_MGR_NO, String X_SWIFI_WRDOFC, String X_SWIFI_MAIN_NM,
+    public Wifiinfo(String Distance, String X_SWIFI_MGR_NO, String X_SWIFI_WRDOFC, String X_SWIFI_MAIN_NM,
                     String X_SWIFI_ADRES1, String X_SWIFI_ADRES2, String X_SWIFI_INSTL_FLOOR,
                     String X_SWIFI_INSTL_TY, String X_SWIFI_INSTL_MBY, String X_SWIFI_SVC_SE,
-                    String X_SWIFI_CMCWR, String X_SWIFI_CNSTC_YEAR, String X_SWIFI_INOUT_DOOR, String X_SWIFI_REMARS3) {
+                    String X_SWIFI_CMCWR, String X_SWIFI_CNSTC_YEAR, String X_SWIFI_INOUT_DOOR, String X_SWIFI_REMARS3,
+                    String LAT, String LNT, String WORK_DTTM) {
 
+        this.Distance = Distance;
         this.X_SWIFI_MGR_NO = X_SWIFI_MGR_NO;
         this.X_SWIFI_WRDOFC = X_SWIFI_WRDOFC;
         this.X_SWIFI_MAIN_NM = X_SWIFI_MAIN_NM;
@@ -33,6 +39,9 @@ public class Wifiinfo {
         this.X_SWIFI_CNSTC_YEAR = X_SWIFI_CNSTC_YEAR;
         this.X_SWIFI_INOUT_DOOR = X_SWIFI_INOUT_DOOR;
         this.X_SWIFI_REMARS3 = X_SWIFI_REMARS3;
+        this.LAT = LAT;
+        this.LNT = LNT;
+        this.WORK_DTTM = WORK_DTTM;
 
     }
 
@@ -87,4 +96,12 @@ public class Wifiinfo {
     public String getX_SWIFI_REMARS3() {
         return X_SWIFI_REMARS3;
     }
+
+    public String getDistance() {return Distance;}
+
+    public String getLAT() {return LAT;}
+
+    public String getLNT() {return LNT;}
+
+    public String getWORK_DTTM() {return WORK_DTTM;}
 }

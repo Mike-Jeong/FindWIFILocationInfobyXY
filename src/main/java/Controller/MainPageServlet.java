@@ -1,6 +1,7 @@
 package Controller;
 
 import DB.DBConnUtils;
+import Model.Wifiinfo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,14 +31,13 @@ public class MainPageServlet extends HttpServlet {
 
         String x = request.getParameter("lat");
         String y = request.getParameter("lnt");
-        System.out.println("?");
 
         if (x == null) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
 
         } else {
 
-            ArrayList<String> s = new ArrayList<>();
+            ArrayList<Wifiinfo> wifiinfolist = new ArrayList<>();
 
             Connection conn = cm.getDBCP();
 
@@ -51,46 +51,60 @@ public class MainPageServlet extends HttpServlet {
 
                 stmt.executeUpdate("insert into history (LAT, LNT, Date )values(" + x + "," + y + ", NOW())");
 
-                rs = stmt.executeQuery("select * from wifi");
+                rs = stmt.executeQuery("select round((ST_Distance_Sphere(POINT(" + " convert( " + y + ", decimal(15,5))," + "convert( " + x + ", decimal(15,5))), " +
+                        "POINT(convert(w.LNT, decimal(15,5)), convert(w.LAT, decimal(15,7)))) * 0.001), 4)  as Distance, w.* " +
+                        "from wifi w order by Distance limit 20");
 
                 while (rs.next()) {
-                    String a1 = rs.getString("X_SWIFI_MGR_NO");
-                    String a2 = rs.getString("X_SWIFI_WRDOFC");
-                    String a3 = rs.getString("X_SWIFI_MAIN_NM");
-                    String a4 = rs.getString("X_SWIFI_ADRES1");
-                    String a5 = rs.getString("X_SWIFI_ADRES2");
-                    String a6 = rs.getString("X_SWIFI_INSTL_FLOOR");
-                    String a7 = rs.getString("X_SWIFI_INSTL_TY");
-                    String a8 = rs.getString("X_SWIFI_INSTL_MBY");
-                    String a9 = rs.getString("X_SWIFI_SVC_SE");
-                    String a10 = rs.getString("X_SWIFI_CMCWR");
-                    String a11 = rs.getString("X_SWIFI_CNSTC_YEAR");
-                    String a12 = rs.getString("X_SWIFI_INOUT_DOOR");
-                    String a13 = rs.getString("X_SWIFI_REMARS3");
-                    String a14 = rs.getString("LAT");
-                    String a15 = rs.getString("LNT");
-                    String a16 = rs.getString("WORK_DTTM");
 
-
-                    String combi = a1 + " " + a2 + " " + a3 + " " + a4 + " " + a5 + " " + a6
-                            + " " + a7 + " " + a8 + " " + a9 + " " + a10 + " " + a11 + " " + a12
-                            + " " + a13 + " " + a14 + " " + a15 + " " + a16;
-
-                    s.add(combi);
+                    wifiinfolist.add(new Wifiinfo(
+                                    rs.getString("Distance"),
+                                    rs.getString("X_SWIFI_MGR_NO"),
+                                    rs.getString("X_SWIFI_WRDOFC"),
+                                    rs.getString("X_SWIFI_MAIN_NM"),
+                                    rs.getString("X_SWIFI_ADRES1"),
+                                    rs.getString("X_SWIFI_ADRES2"),
+                                    rs.getString("X_SWIFI_INSTL_FLOOR"),
+                                    rs.getString("X_SWIFI_INSTL_TY"),
+                                    rs.getString("X_SWIFI_INSTL_MBY"),
+                                    rs.getString("X_SWIFI_SVC_SE"),
+                                    rs.getString("X_SWIFI_CMCWR"),
+                                    rs.getString("X_SWIFI_CNSTC_YEAR"),
+                                    rs.getString("X_SWIFI_INOUT_DOOR"),
+                                    rs.getString("X_SWIFI_REMARS3"),
+                                    rs.getString("LAT"),
+                                    rs.getString("LNT"),
+                                    rs.getString("WORK_DTTM")
+                            )
+                    );
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } finally {
-                cm.closeConnection(conn, stmt, rs, "main");
-            }
-            try {
-                request.setAttribute("list", s);
 
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            } catch (NumberFormatException e) {
-                PrintWriter out = response.getWriter();
-                out.println("<script>alert('오류');</script>");
+                cm.closeConnection(conn, stmt, rs, "main");
+
+                try {
+                    int result;
+                    if (wifiinfolist.size() == 0) {
+                        response.setContentType("text/html; charset=UTF-8");
+                        PrintWriter writer = response.getWriter();
+                        writer.println("<script>alert('와이파이 정보를 가져온 뒤, 다시 시도해 주세요'); location.href='index.jsp';</script>");
+                        writer.close();
+                    } else {
+                        request.setAttribute("list", wifiinfolist);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    }
+
+                } catch (NumberFormatException e) {
+
+                    response.setContentType("text/html; charset=UTF-8");
+                    PrintWriter writer = response.getWriter();
+                    writer.println("<script>alert('오류가 발생했습니다'); location.href='index.jsp';</script>");
+                    writer.close();
+                }
             }
+
         }
     }
 

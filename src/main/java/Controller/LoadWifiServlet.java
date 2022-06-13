@@ -24,9 +24,8 @@ public class LoadWifiServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        int count = WifiApiService.getWifiInfo();
-
-
+        WifiApiService ws = new WifiApiService();
+        int count = ws.getInfoCount();
 
         response.setContentType("text/html; charset=UTF-8");
 
