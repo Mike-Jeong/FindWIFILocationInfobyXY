@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Model.Wifiinfo" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -15,12 +16,12 @@
         }
         td, th {
             padding: 8px;
+            font-size: 80%;
 
         }
         th{
             background-color: #26ab71;
             color: aliceblue;
-            font-size: 80%;
         }
         td{
             text-align: center;
@@ -71,10 +72,59 @@
     </tr>
     <%
     } else {
-        for (String s : (ArrayList<String>) request.getAttribute("list")) {%>
+
+        for (Wifiinfo info : (ArrayList<Wifiinfo>) request.getAttribute("list")) {%>
     <tr>
-        <td colspan="17">
-            <%=s%>
+        <td>
+            <%=info.getDistance()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_MGR_NO()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_WRDOFC()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_MAIN_NM()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_ADRES1()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_ADRES2()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_INSTL_FLOOR()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_INSTL_TY()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_INSTL_MBY()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_SVC_SE()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_CMCWR()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_CNSTC_YEAR()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_INOUT_DOOR()%>
+        </td>
+        <td>
+            <%=info.getX_SWIFI_REMARS3()%>
+        </td>
+        <td>
+            <%=info.getLAT()%>
+        </td>
+        <td>
+            <%=info.getLNT()%>
+        </td>
+        <td>
+            <%=info.getWORK_DTTM()%>
         </td>
     </tr>
     <%

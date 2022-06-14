@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Model.History" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -51,16 +52,27 @@
     <%
     } else {
         int i = 1;
-        for (String s : (ArrayList<String>) request.getAttribute("historylist")) {%>
+        for (History history : (ArrayList<History>) request.getAttribute("historylist")) {%>
     <tr>
-        <td align = "center">
+        <td>
             <%=i%>
         </td>
-        <td colspan="3">
-            <%=s%>
+        <td>
+            <%=history.getLAT()%>
         </td>
-        <td align = "center">
-            <button formmethod="post" name="delete" value="delete">삭제</button>
+        <td>
+            <%=history.getLNT()%>
+        </td>
+        <td>
+            <%=history.getDate()%>
+        </td>
+        <td>
+            <form action="/history/delete" method="get">
+                <input type="hidden" name="lat" value="<%=history.getLAT()%>">
+                <input type="hidden" name="lnt" value="<%=history.getLNT()%>">
+                <input type="hidden" name="date" value="<%=history.getDate()%>">
+                <button type="submit">삭제</button>
+            </form>
         </td>
     </tr>
     <%

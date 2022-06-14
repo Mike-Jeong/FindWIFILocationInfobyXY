@@ -1,6 +1,7 @@
 package Controller;
 
 import DB.DBConnUtils;
+import Model.History;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,7 @@ public class HistoryPageServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ArrayList<String> historylist = new ArrayList<>();
+        ArrayList<History> historylist = new ArrayList<>();
 
         Connection conn = cm.getDBCP();
 
@@ -39,18 +40,10 @@ public class HistoryPageServlet extends HttpServlet {
         }
 
         try {
-            rs = stmt.executeQuery("select * from history");
+            rs = stmt.executeQuery("select * from history order by Date");
 
             while (rs.next()) {
-                String a = rs.getString("ID");
-                String a1 = rs.getString("LAT");
-                String a2 = rs.getString("LNT");
-                String a3 = rs.getString("Date");
-
-
-                String combi = a + " " + a1 + " " + a2 + " " + a3;
-
-                historylist.add(combi);
+                historylist.add(new History(rs.getString("LAT"), rs.getString("LNT"), rs.getString("Date")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
