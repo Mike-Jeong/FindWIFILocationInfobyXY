@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.History" %>
+<%@ page import="dto.HistoryDto" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -9,21 +9,25 @@
         table, td, th {
             border: 1px solid lightgrey;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 8px;
         }
+
         td, th {
             padding: 8px;
 
         }
-        th{
+
+        th {
             background-color: #26ab71;
             color: aliceblue;
             font-size: 80%;
         }
-        td{
+
+        td {
             text-align: center;
         }
     </style>
@@ -31,7 +35,8 @@
 <body>
 <h1>위치 히스토리 목록</h1>
 <p></p>
-<a href="./">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadwifi">Open API 와이파이 정보 가져오기</a>
+<a href="/">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadWifi">Open API 와이파이
+    정보 가져오기</a>
 
 <table>
     <thead>
@@ -43,7 +48,7 @@
         <th>비고</th>
     </tr>
     </thead>
-    <%if (request.getAttribute("historylist") == null) {%>
+    <%if (request.getAttribute("historyList") == null) {%>
     <tr>
         <td colspan="5">
             아직 검색한 와이파이 정보가 없습니다.
@@ -52,7 +57,7 @@
     <%
     } else {
         int i = 1;
-        for (History history : (ArrayList<History>) request.getAttribute("historylist")) {%>
+        for (HistoryDto history : (ArrayList<HistoryDto>) request.getAttribute("historyList")) {%>
     <tr>
         <td>
             <%=i%>
@@ -67,7 +72,7 @@
             <%=history.getDate()%>
         </td>
         <td>
-            <form action="/history/delete" method="get">
+            <form action="/history/delete">
                 <input type="hidden" name="lat" value="<%=history.getLAT()%>">
                 <input type="hidden" name="lnt" value="<%=history.getLNT()%>">
                 <input type="hidden" name="date" value="<%=history.getDate()%>">
@@ -76,7 +81,8 @@
         </td>
     </tr>
     <%
-       i++;     }
+                i++;
+            }
         }
     %>
 </table>

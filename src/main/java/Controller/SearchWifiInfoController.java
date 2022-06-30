@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import DB.DBConnUtils;
-import Model.Wifiinfo;
+import db.DBConnUtils;
+import dto.WifiInfoDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,15 +16,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-@WebServlet(name = "mainPage", value = "/main")
-public class MainPageServlet extends HttpServlet {
+@WebServlet(name = "searchWifiInfoController", value = "/search")
+public class SearchWifiInfoController extends HttpServlet {
     private DBConnUtils cm;
     private Statement stmt = null;
     private ResultSet rs = null;
 
     public void init() {
 
-        System.out.println("Main init");
+        System.out.println("searchWifiInfoController init");
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,11 +33,11 @@ public class MainPageServlet extends HttpServlet {
         String y = request.getParameter("lnt");
 
         if (x == null) {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/search.jsp").forward(request, response);
 
         } else {
 
-            ArrayList<Wifiinfo> wifiinfolist = new ArrayList<>();
+            ArrayList<WifiInfoDto> wifiInfoList = new ArrayList<>();
 
             Connection conn = cm.getDBCP();
 
@@ -57,7 +57,7 @@ public class MainPageServlet extends HttpServlet {
 
                 while (rs.next()) {
 
-                    wifiinfolist.add(new Wifiinfo(
+                    wifiInfoList.add(new WifiInfoDto(
                                     rs.getString("Distance"),
                                     rs.getString("X_SWIFI_MGR_NO"),
                                     rs.getString("X_SWIFI_WRDOFC"),
@@ -86,21 +86,21 @@ public class MainPageServlet extends HttpServlet {
 
                 try {
                     int result;
-                    if (wifiinfolist.size() == 0) {
+                    if (wifiInfoList.size() == 0) {
                         response.setContentType("text/html; charset=UTF-8");
                         PrintWriter writer = response.getWriter();
-                        writer.println("<script>alert('와이파이 정보를 가져온 뒤, 다시 시도해 주세요'); location.href='index.jsp';</script>");
+                        writer.println("<script>alert('와이파이 정보를 가져온 뒤, 다시 시도해 주세요'); location.href='search.jsp';</script>");
                         writer.close();
                     } else {
-                        request.setAttribute("list", wifiinfolist);
-                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                        request.setAttribute("list", wifiInfoList);
+                        request.getRequestDispatcher("/WEB-INF/views/search.jsp").forward(request, response);
                     }
 
                 } catch (NumberFormatException e) {
 
                     response.setContentType("text/html; charset=UTF-8");
                     PrintWriter writer = response.getWriter();
-                    writer.println("<script>alert('오류가 발생했습니다'); location.href='index.jsp';</script>");
+                    writer.println("<script>alert('오류가 발생했습니다'); location.href='/';</script>");
                     writer.close();
                 }
             }

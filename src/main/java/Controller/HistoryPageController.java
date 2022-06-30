@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import DB.DBConnUtils;
-import Model.History;
+import db.DBConnUtils;
+import dto.HistoryDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,22 +16,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-@WebServlet(name = "historydelete", value = "/history/delete")
-public class HistoryDeleteServlet extends HttpServlet {
+@WebServlet(name = "historyPage", value = "/history")
+public class HistoryPageController extends HttpServlet {
     private DBConnUtils cm;
     private Statement stmt = null;
     private ResultSet rs = null;
 
     public void init() {
 
-        System.out.println("history delete init");
+        System.out.println("history init");
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String lat = request.getParameter("lat");
-        String lnt = request.getParameter("lnt");
-        String date = request.getParameter("date");
+        ArrayList<HistoryDto> historyList = new ArrayList<>();
 
         Connection conn = cm.getDBCP();
 
@@ -42,19 +40,29 @@ public class HistoryDeleteServlet extends HttpServlet {
         }
 
         try {
-            stmt.executeUpdate("delete from history where LAT = " + lat + "and LNT = " + lnt + "and Date = '" + date + "'");
+            rs = stmt.executeQuery("select * from history order by Date");
+
+            while (rs.next()) {
+                historyList.add(new HistoryDto(rs.getString("LAT"), rs.getString("LNT"), rs.getString("Date")));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            cm.closeConnection(conn, stmt, rs, "history delete");
+            cm.closeConnection(conn, stmt, rs, "history");
         }
 
         try {
-            response.sendRedirect("/history");
+            request.setAttribute("historyList", historyList);
+            request.getRequestDispatcher("/WEB-INF/views/history.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('삭제 오류');</script>");
+            out.println("<script>alert('오류');</script>");
         }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 

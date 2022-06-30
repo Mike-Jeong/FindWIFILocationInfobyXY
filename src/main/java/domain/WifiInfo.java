@@ -1,31 +1,29 @@
-package Model;
+package domain;
 
-public class Wifiinfo {
-    private String Distance;
-    private String X_SWIFI_MGR_NO;
-    private String X_SWIFI_WRDOFC;
-    private String X_SWIFI_MAIN_NM;
-    private String X_SWIFI_ADRES1;
-    private String X_SWIFI_ADRES2;
-    private String X_SWIFI_INSTL_FLOOR;
-    private String X_SWIFI_INSTL_TY;
-    private String X_SWIFI_INSTL_MBY;
-    private String X_SWIFI_SVC_SE;
-    private String X_SWIFI_CMCWR;
-    private String X_SWIFI_CNSTC_YEAR;
-    private String X_SWIFI_INOUT_DOOR;
-    private String X_SWIFI_REMARS3;
-    private String LAT;
-    private String LNT;
-    private String WORK_DTTM;
+public class WifiInfo {
+    private final String X_SWIFI_MGR_NO;
+    private final String X_SWIFI_WRDOFC;
+    private final String X_SWIFI_MAIN_NM;
+    private final String X_SWIFI_ADRES1;
+    private final String X_SWIFI_ADRES2;
+    private final String X_SWIFI_INSTL_FLOOR;
+    private final String X_SWIFI_INSTL_TY;
+    private final String X_SWIFI_INSTL_MBY;
+    private final String X_SWIFI_SVC_SE;
+    private final String X_SWIFI_CMCWR;
+    private final String X_SWIFI_CNSTC_YEAR;
+    private final String X_SWIFI_INOUT_DOOR;
+    private final String X_SWIFI_REMARS3;
+    private final String LAT;
+    private final String LNT;
+    private final String WORK_DTTM;
 
-    public Wifiinfo(String Distance, String X_SWIFI_MGR_NO, String X_SWIFI_WRDOFC, String X_SWIFI_MAIN_NM,
+    public WifiInfo(String X_SWIFI_MGR_NO, String X_SWIFI_WRDOFC, String X_SWIFI_MAIN_NM,
                     String X_SWIFI_ADRES1, String X_SWIFI_ADRES2, String X_SWIFI_INSTL_FLOOR,
                     String X_SWIFI_INSTL_TY, String X_SWIFI_INSTL_MBY, String X_SWIFI_SVC_SE,
                     String X_SWIFI_CMCWR, String X_SWIFI_CNSTC_YEAR, String X_SWIFI_INOUT_DOOR, String X_SWIFI_REMARS3,
                     String LAT, String LNT, String WORK_DTTM) {
 
-        this.Distance = Distance;
         this.X_SWIFI_MGR_NO = X_SWIFI_MGR_NO;
         this.X_SWIFI_WRDOFC = X_SWIFI_WRDOFC;
         this.X_SWIFI_MAIN_NM = X_SWIFI_MAIN_NM;
@@ -42,7 +40,6 @@ public class Wifiinfo {
         this.LAT = LAT;
         this.LNT = LNT;
         this.WORK_DTTM = WORK_DTTM;
-
     }
 
     public String getX_SWIFI_MGR_NO() {
@@ -97,11 +94,15 @@ public class Wifiinfo {
         return X_SWIFI_REMARS3;
     }
 
-    public String getDistance() {return Distance;}
+    public String getLAT() {
+        return LAT;
+    }
 
-    public String getLAT() {return LAT;}
+    public String getLNT() {
+        return LNT;
+    }
 
-    public String getLNT() {return LNT;}
-
-    public String getWORK_DTTM() {return WORK_DTTM;}
+    public String getWORK_DTTM() {
+        return WORK_DTTM;
+    }
 }

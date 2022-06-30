@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.Wifiinfo" %>
+<%@ page import="dto.WifiInfoDto" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -9,32 +9,37 @@
         table, td, th {
             border: 1px solid lightgrey;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 8px;
         }
+
         td, th {
             padding: 8px;
             font-size: 80%;
 
         }
-        th{
+
+        th {
             background-color: #26ab71;
             color: aliceblue;
         }
-        td{
+
+        td {
             text-align: center;
         }
     </style>
 </head>
 <body>
-<script type="text/javascript" src="JS/GetCurrentLoc.js?ver=1"></script>
+<script type="text/javascript" src="../../JS/GetCurrentLoc.js?ver=1"></script>
 <h1>와이파이 정보 구하기</h1>
 <p></p>
-<a href="./">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadwifi">Open API 와이파이 정보 가져오기</a>
+<a href="/">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadWifi">Open API 와이파이 정보
+    가져오기</a>
 <p></p>
-<form action="/main">
+<form action="/search">
     <label>LAT: </label>
     <input type="text" id="lat" name="lat" placeholder="0.0" required value="${param.lat}"/>
     <label>LNT: </label>
@@ -64,16 +69,8 @@
         <th>작업일자</th>
     </tr>
     </thead>
-    <%if (request.getAttribute("list") == null) {%>
-    <tr>
-        <td colspan="17">
-            위치 정보를 입력한 후에 조회해 주세요.
-        </td>
-    </tr>
     <%
-    } else {
-
-        for (Wifiinfo info : (ArrayList<Wifiinfo>) request.getAttribute("list")) {%>
+        for (WifiInfoDto info : (ArrayList<WifiInfoDto>) request.getAttribute("list")) {%>
     <tr>
         <td>
             <%=info.getDistance()%>
@@ -128,7 +125,6 @@
         </td>
     </tr>
     <%
-            }
         }
     %>
 </table>

@@ -1,12 +1,12 @@
-package Model;
+package dto;
 
-public class History {
+public class HistoryDto {
 
-    private String LAT;
-    private String LNT;
-    private String Date;
+    private final String LAT;
+    private final String LNT;
+    private final String Date;
 
-    public History(String LAT, String LNT, String Date) {
+    public HistoryDto(String LAT, String LNT, String Date) {
         this.LAT = LAT;
         this.LNT = LNT;
         this.Date = Date;
