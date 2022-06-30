@@ -1,6 +1,7 @@
 package controller;
 
 import db.DBConnUtils;
+import service.HistoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 @WebServlet(name = "historyDelete", value = "/history/delete")
 public class HistoryDeleteController extends HttpServlet {
-    private DBConnUtils cm;
-    private Statement stmt = null;
-    private ResultSet rs = null;
-
     public void init() {
 
         System.out.println("history delete init");
@@ -31,31 +26,15 @@ public class HistoryDeleteController extends HttpServlet {
         String lnt = request.getParameter("lnt");
         String date = request.getParameter("date");
 
-        Connection conn = cm.getDBCP();
+        HistoryService historyService = new HistoryService();
 
-        try {
-            stmt = conn.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        int result = historyService.deleteHistory(lat, lnt, date);
 
-        try {
-            stmt.executeUpdate("delete from history where LAT = " + lat + "and LNT = " + lnt + "and Date = '" + date + "'");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            cm.closeConnection(conn, stmt, rs, "history delete");
-        }
-
-        try {
+        if (result == 1) {
             response.sendRedirect("/history");
-        } catch (NumberFormatException e) {
+        } else {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('삭제 오류');</script>");
         }
-
-    }
-
-    public void destroy() {
     }
 }
