@@ -1,4 +1,4 @@
-# FindWiFiLocationInfobyXY
+# FindWiFiLocationInfoByXY
 
 사용자 위치 기반 공공 와이파이 정보를 제공하는 웹 서비스 
 
