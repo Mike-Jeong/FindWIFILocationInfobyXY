@@ -51,16 +51,20 @@
     <%if (request.getAttribute("historyList") == null) {%>
     <tr>
         <td colspan="5">
-            아직 검색한 와이파이 정보가 없습니다.
+            오류가 발생했습니다. 잠시 후 다시 시도해 주세요
         </td>
     </tr>
-    <%
-    } else {
-        int i = 1;
+    <% } else if (((ArrayList<HistoryDto>) request.getAttribute("historyList")).size() == 0) {%>
+    <tr>
+        <td colspan="5">
+            저장 된 기록이 없습니다.
+        </td>
+    </tr>
+    <% } else {
         for (HistoryDto history : (ArrayList<HistoryDto>) request.getAttribute("historyList")) {%>
     <tr>
         <td>
-            <%=i%>
+            <%=history.getId()%>
         </td>
         <td>
             <%=history.getLAT()%>
@@ -73,6 +77,7 @@
         </td>
         <td>
             <form action="/history/delete">
+                <input type="hidden" name="id" value="<%=history.getId()%>">
                 <input type="hidden" name="lat" value="<%=history.getLAT()%>">
                 <input type="hidden" name="lnt" value="<%=history.getLNT()%>">
                 <input type="hidden" name="date" value="<%=history.getDate()%>">
@@ -81,7 +86,6 @@
         </td>
     </tr>
     <%
-                i++;
             }
         }
     %>

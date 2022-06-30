@@ -1,22 +1,16 @@
 package controller;
 
-import api.WifiApiService;
-import db.DBConnUtils;
 import service.LoadWifiInfoService;
 
-import java.io.*;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @WebServlet(name = "loadWifi", value = "/loadWifi")
 public class LoadWifiInfoController extends HttpServlet {
-    private DBConnUtils cm;
-    private Statement stmt = null;
-    private ResultSet rs = null;
-
     public void init() {
 
         System.out.println("LoadWifiController init");

@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 
 public class WifiApiService {
     private StringBuilder urlBuilder;
+
     public WifiApiService() {
 
         try {
@@ -25,6 +26,7 @@ public class WifiApiService {
             System.out.println(e);
         }
     }
+
     public JsonArray getWifiInfo() {
 
         try {

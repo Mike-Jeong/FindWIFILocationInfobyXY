@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 @WebServlet(name = "historyPage", value = "/history")
-public class HistoryPageController extends HttpServlet {
+public class HistoryController extends HttpServlet {
     public void init() {
 
         System.out.println("history init");
@@ -33,6 +33,7 @@ public class HistoryPageController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/history.jsp").forward(request, response);
         }
     }
+
     public void destroy() {
     }
 }
