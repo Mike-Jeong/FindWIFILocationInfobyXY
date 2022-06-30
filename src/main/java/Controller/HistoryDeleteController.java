@@ -1,6 +1,5 @@
 package controller;
 
-import db.DBConnUtils;
 import service.HistoryService;
 
 import javax.servlet.ServletException;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 @WebServlet(name = "historyDelete", value = "/history/delete")
 public class HistoryDeleteController extends HttpServlet {
@@ -34,7 +31,7 @@ public class HistoryDeleteController extends HttpServlet {
             response.sendRedirect("/history");
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('삭제 오류');</script>");
+            out.println("<script>alert('Error');</script>");
         }
     }
 }

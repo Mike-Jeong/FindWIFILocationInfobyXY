@@ -1,5 +1,7 @@
 package dto;
 
+import domain.WifiInfo;
+
 public class WifiInfoDto {
     private final String Distance;
     private final String X_SWIFI_MGR_NO;
@@ -19,29 +21,25 @@ public class WifiInfoDto {
     private final String LNT;
     private final String WORK_DTTM;
 
-    public WifiInfoDto(String Distance, String X_SWIFI_MGR_NO, String X_SWIFI_WRDOFC, String X_SWIFI_MAIN_NM,
-                       String X_SWIFI_ADRES1, String X_SWIFI_ADRES2, String X_SWIFI_INSTL_FLOOR,
-                       String X_SWIFI_INSTL_TY, String X_SWIFI_INSTL_MBY, String X_SWIFI_SVC_SE,
-                       String X_SWIFI_CMCWR, String X_SWIFI_CNSTC_YEAR, String X_SWIFI_INOUT_DOOR, String X_SWIFI_REMARS3,
-                       String LAT, String LNT, String WORK_DTTM) {
+    public WifiInfoDto(String Distance, WifiInfo wifiInfo) {
 
         this.Distance = Distance;
-        this.X_SWIFI_MGR_NO = X_SWIFI_MGR_NO;
-        this.X_SWIFI_WRDOFC = X_SWIFI_WRDOFC;
-        this.X_SWIFI_MAIN_NM = X_SWIFI_MAIN_NM;
-        this.X_SWIFI_ADRES1 = X_SWIFI_ADRES1;
-        this.X_SWIFI_ADRES2 = X_SWIFI_ADRES2;
-        this.X_SWIFI_INSTL_FLOOR = X_SWIFI_INSTL_FLOOR;
-        this.X_SWIFI_INSTL_TY = X_SWIFI_INSTL_TY;
-        this.X_SWIFI_INSTL_MBY = X_SWIFI_INSTL_MBY;
-        this.X_SWIFI_SVC_SE = X_SWIFI_SVC_SE;
-        this.X_SWIFI_CMCWR = X_SWIFI_CMCWR;
-        this.X_SWIFI_CNSTC_YEAR = X_SWIFI_CNSTC_YEAR;
-        this.X_SWIFI_INOUT_DOOR = X_SWIFI_INOUT_DOOR;
-        this.X_SWIFI_REMARS3 = X_SWIFI_REMARS3;
-        this.LAT = LAT;
-        this.LNT = LNT;
-        this.WORK_DTTM = WORK_DTTM;
+        this.X_SWIFI_MGR_NO = wifiInfo.getX_SWIFI_MGR_NO();
+        this.X_SWIFI_WRDOFC = wifiInfo.getX_SWIFI_WRDOFC();
+        this.X_SWIFI_MAIN_NM = wifiInfo.getX_SWIFI_MAIN_NM();
+        this.X_SWIFI_ADRES1 = wifiInfo.getX_SWIFI_ADRES1();
+        this.X_SWIFI_ADRES2 = wifiInfo.getX_SWIFI_ADRES2();
+        this.X_SWIFI_INSTL_FLOOR = wifiInfo.getX_SWIFI_INSTL_FLOOR();
+        this.X_SWIFI_INSTL_TY = wifiInfo.getX_SWIFI_INSTL_TY();
+        this.X_SWIFI_INSTL_MBY = wifiInfo.getX_SWIFI_INSTL_MBY();
+        this.X_SWIFI_SVC_SE = wifiInfo.getX_SWIFI_SVC_SE();
+        this.X_SWIFI_CMCWR = wifiInfo.getX_SWIFI_CMCWR();
+        this.X_SWIFI_CNSTC_YEAR = wifiInfo.getX_SWIFI_CNSTC_YEAR();
+        this.X_SWIFI_INOUT_DOOR = wifiInfo.getX_SWIFI_INOUT_DOOR();
+        this.X_SWIFI_REMARS3 = wifiInfo.getX_SWIFI_REMARS3();
+        this.LAT = wifiInfo.getLAT();
+        this.LNT = wifiInfo.getLNT();
+        this.WORK_DTTM = wifiInfo.getWORK_DTTM();
 
     }
 
