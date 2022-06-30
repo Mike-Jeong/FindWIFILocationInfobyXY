@@ -17,3 +17,6 @@
 - HTML5, CSS3, JS
 - servlet, jsp (mvc 패턴 적용)
 - 서울시 공공 와이파이 Open API
+
+Notion : https://polydactyl-suit-0b2.notion.site/ea8794562be044708ec767ef07621712
+시연영상 : https://drive.google.com/file/d/1JzP1nieTYz35DzPtAx06liai-6k8_v4E/view?usp=sharing
