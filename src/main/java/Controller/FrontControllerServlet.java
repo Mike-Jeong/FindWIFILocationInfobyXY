@@ -12,7 +12,7 @@ import java.util.Map;
 @WebServlet(name = "frontControllerServlet", urlPatterns = "/")
 public class FrontControllerServlet extends HttpServlet {
 
-    private Map<String, IController> controllerMap = new HashMap<>();
+    private final Map<String, IController> controllerMap = new HashMap<>();
 
     public FrontControllerServlet() {
         controllerMap.put("/", new MainPageController());
