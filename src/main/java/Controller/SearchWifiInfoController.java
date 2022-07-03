@@ -5,25 +5,18 @@ import dto.WifiInfoDto;
 import service.SearchWifiInfoService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(name = "searchWifiInfoController", value = "/search")
-public class SearchWifiInfoController extends HttpServlet {
+public class SearchWifiInfoController implements IController {
 
     SearchWifiInfoService searchWifiInfoService;
-    public void init() {
 
-        System.out.println("searchWifiInfoController init");
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    @Override
+    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double lat = Double.parseDouble(request.getParameter("lat"));
         double lnt = Double.parseDouble(request.getParameter("lnt"));
 
@@ -45,6 +38,5 @@ public class SearchWifiInfoController extends HttpServlet {
             request.setAttribute("list", wifiInfoList);
             request.getRequestDispatcher("/WEB-INF/views/search.jsp").forward(request, response);
         }
-
     }
 }
