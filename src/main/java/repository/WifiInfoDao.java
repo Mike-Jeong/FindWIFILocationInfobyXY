@@ -74,26 +74,24 @@ public class WifiInfoDao {
 
             while (rs.next()) {
 
-                WifiInfo wifiInfo = new WifiInfo(rs.getString("X_SWIFI_MGR_NO"),
-                        rs.getString("X_SWIFI_WRDOFC"),
-                        rs.getString("X_SWIFI_MAIN_NM"),
-                        rs.getString("X_SWIFI_ADRES1"),
-                        rs.getString("X_SWIFI_ADRES2"),
-                        rs.getString("X_SWIFI_INSTL_FLOOR"),
-                        rs.getString("X_SWIFI_INSTL_TY"),
-                        rs.getString("X_SWIFI_INSTL_MBY"),
-                        rs.getString("X_SWIFI_SVC_SE"),
-                        rs.getString("X_SWIFI_CMCWR"),
-                        rs.getString("X_SWIFI_CNSTC_YEAR"),
-                        rs.getString("X_SWIFI_INOUT_DOOR"),
-                        rs.getString("X_SWIFI_REMARS3"),
-                        rs.getString("LAT"),
-                        rs.getString("LNT"),
-                        rs.getString("WORK_DTTM"));
-
                 wifiInfoList.add(new WifiInfoDto(
                                 rs.getString("Distance"),
-                                wifiInfo
+                                rs.getString("X_SWIFI_MGR_NO"),
+                                rs.getString("X_SWIFI_WRDOFC"),
+                                rs.getString("X_SWIFI_MAIN_NM"),
+                                rs.getString("X_SWIFI_ADRES1"),
+                                rs.getString("X_SWIFI_ADRES2"),
+                                rs.getString("X_SWIFI_INSTL_FLOOR"),
+                                rs.getString("X_SWIFI_INSTL_TY"),
+                                rs.getString("X_SWIFI_INSTL_MBY"),
+                                rs.getString("X_SWIFI_SVC_SE"),
+                                rs.getString("X_SWIFI_CMCWR"),
+                                rs.getString("X_SWIFI_CNSTC_YEAR"),
+                                rs.getString("X_SWIFI_INOUT_DOOR"),
+                                rs.getString("X_SWIFI_REMARS3"),
+                                rs.getString("LAT"),
+                                rs.getString("LNT"),
+                                rs.getString("WORK_DTTM")
                         )
                 );
             }

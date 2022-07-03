@@ -3,15 +3,19 @@ package service;
 import api.WifiApiService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import config.ApplicationConfig;
 import domain.WifiInfo;
 import repository.WifiInfoDao;
 
 public class LoadWifiInfoService {
 
+    WifiApiService wifiApiService;
+    WifiInfoDao wifiInfoDAO;
+
     public int insertWifiINfo() {
 
-        WifiApiService wifiApiService = new WifiApiService();
-        WifiInfoDao wifiInfoDAO = new WifiInfoDao();
+        wifiApiService = ApplicationConfig.getWifiApiService();
+        wifiInfoDAO = ApplicationConfig.getWifiInfoDao();
 
         JsonArray jsonArray = wifiApiService.getWifiInfo();
 

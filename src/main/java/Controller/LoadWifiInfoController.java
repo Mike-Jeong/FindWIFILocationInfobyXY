@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfig;
 import service.LoadWifiInfoService;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import java.io.IOException;
 
 @WebServlet(name = "loadWifi", value = "/loadWifi")
 public class LoadWifiInfoController extends HttpServlet {
+
+    LoadWifiInfoService loadWifiInfoService;
     public void init() {
 
         System.out.println("LoadWifiController init");
@@ -18,7 +21,8 @@ public class LoadWifiInfoController extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        LoadWifiInfoService loadWifiInfoService = new LoadWifiInfoService();
+        loadWifiInfoService = ApplicationConfig.getLoadWifiInfoService();
+
         int count = loadWifiInfoService.insertWifiINfo();
 
         if (count == -1) {
@@ -27,8 +31,5 @@ public class LoadWifiInfoController extends HttpServlet {
             request.setAttribute("wifiCount", count);
             request.getRequestDispatcher("/WEB-INF/views/loadWifi.jsp").forward(request, response);
         }
-    }
-
-    public void destroy() {
     }
 }

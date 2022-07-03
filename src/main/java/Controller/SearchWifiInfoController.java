@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfig;
 import dto.WifiInfoDto;
 import service.SearchWifiInfoService;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 
 @WebServlet(name = "searchWifiInfoController", value = "/search")
 public class SearchWifiInfoController extends HttpServlet {
+
+    SearchWifiInfoService searchWifiInfoService;
     public void init() {
 
         System.out.println("searchWifiInfoController init");
@@ -24,7 +27,7 @@ public class SearchWifiInfoController extends HttpServlet {
         double lat = Double.parseDouble(request.getParameter("lat"));
         double lnt = Double.parseDouble(request.getParameter("lnt"));
 
-        SearchWifiInfoService searchWifiInfoService = new SearchWifiInfoService();
+        searchWifiInfoService = ApplicationConfig.getSearchWifiInfoService();
 
         ArrayList<WifiInfoDto> wifiInfoList = searchWifiInfoService.getWifiInfoList(lat, lnt);
 

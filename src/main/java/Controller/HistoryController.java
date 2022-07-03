@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfig;
 import dto.HistoryDto;
 import service.HistoryService;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 
 @WebServlet(name = "historyPage", value = "/history")
 public class HistoryController extends HttpServlet {
+
+    HistoryService historyService;
     public void init() {
 
         System.out.println("history init");
@@ -21,7 +24,7 @@ public class HistoryController extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HistoryService historyService = new HistoryService();
+        historyService = ApplicationConfig.getHistoryService();
 
         ArrayList<HistoryDto> historyList = historyService.getHistory();
 
@@ -32,8 +35,5 @@ public class HistoryController extends HttpServlet {
             request.setAttribute("historyList", historyList);
             request.getRequestDispatcher("/WEB-INF/views/history.jsp").forward(request, response);
         }
-    }
-
-    public void destroy() {
     }
 }

@@ -1,5 +1,6 @@
 package service;
 
+import config.ApplicationConfig;
 import domain.History;
 import dto.WifiInfoDto;
 import repository.HistoryDao;
@@ -10,11 +11,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class SearchWifiInfoService {
-
+    WifiInfoDao wifiInfoDAO;
+    HistoryDao historyDAO;
     public ArrayList<WifiInfoDto> getWifiInfoList(double lat, double lnt) {
 
-        WifiInfoDao wifiInfoDAO = new WifiInfoDao();
-        HistoryDao historyDAO = new HistoryDao();
+        wifiInfoDAO = ApplicationConfig.getWifiInfoDao();
+        historyDAO = ApplicationConfig.getHistoryDao();
 
         History history = new History(String.valueOf(lat), String.valueOf(lnt), LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 

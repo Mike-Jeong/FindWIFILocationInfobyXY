@@ -1,5 +1,6 @@
 package controller;
 
+import config.ApplicationConfig;
 import dto.HistoryDto;
 import service.HistoryService;
 
@@ -12,6 +13,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "historyDelete", value = "/history/delete")
 public class HistoryDeleteController extends HttpServlet {
+
+    HistoryService historyService;
     public void init() {
 
         System.out.println("history delete init");
@@ -24,7 +27,7 @@ public class HistoryDeleteController extends HttpServlet {
         String lnt = request.getParameter("lnt");
         String date = request.getParameter("date");
 
-        HistoryService historyService = new HistoryService();
+        historyService = ApplicationConfig.getHistoryService();
 
         HistoryDto historyDto = new HistoryDto(id, lat, lnt, date);
 

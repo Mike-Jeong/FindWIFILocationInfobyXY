@@ -1,5 +1,6 @@
 package service;
 
+import config.ApplicationConfig;
 import domain.History;
 import dto.HistoryDto;
 import repository.HistoryDao;
@@ -7,10 +8,11 @@ import repository.HistoryDao;
 import java.util.ArrayList;
 
 public class HistoryService {
+    HistoryDao historyDAO;
 
     public boolean deleteHistory(HistoryDto historyDto) {
 
-        HistoryDao historyDAO = new HistoryDao();
+        historyDAO = ApplicationConfig.getHistoryDao();
 
         History history = new History(historyDto.getLAT(), historyDto.getLNT(), historyDto.getDate());
 
@@ -19,7 +21,7 @@ public class HistoryService {
 
     public ArrayList<HistoryDto> getHistory() {
 
-        HistoryDao historyDAO = new HistoryDao();
+        historyDAO = new HistoryDao();
         ArrayList<History> historyList = historyDAO.get();
         ArrayList<HistoryDto> historyDtoList = new ArrayList<>();
 
