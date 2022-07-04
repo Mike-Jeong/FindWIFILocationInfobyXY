@@ -35,7 +35,8 @@ public class FrontControllerServlet extends HttpServlet {
 
         MyView myView = controller.process(request, response);
 
-        myView.render(request, response);
-
+        if (myView != null) {
+            myView.render(request, response);
+        }
     }
 }

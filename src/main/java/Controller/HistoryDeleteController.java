@@ -15,7 +15,7 @@ public class HistoryDeleteController implements IController {
 
     @Override
     public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         String lat = request.getParameter("lat");
         String lnt = request.getParameter("lnt");
         String date = request.getParameter("date");
@@ -31,7 +31,7 @@ public class HistoryDeleteController implements IController {
         }
 
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('Error'); location.href='/'; </script>");*/
+        out.println("<script>alert('Error'); location.href='/'; </script>");
 
         return null;
     }
