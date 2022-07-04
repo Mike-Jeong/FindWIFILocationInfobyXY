@@ -34,8 +34,6 @@ public class HistoryService {
             historyDtoList.add(new HistoryDto((i + 1), history.getLAT(), history.getLNT(), history.getDate()));
         }
 
-        System.out.println("?????");
-
         return historyDtoList;
 
     }

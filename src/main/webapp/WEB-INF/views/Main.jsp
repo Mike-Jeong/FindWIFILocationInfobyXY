@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-<script type="text/javascript" src="JS/GetCurrentLoc.js?ver=1"></script>
+<script type="text/javascript" src="../../JS/GetCurrentLoc.js?ver=1"></script>
 <h1>와이파이 정보 구하기</h1>
 <p></p>
 <a href="/">홈</a> <span>|</span> <a href="/history">위치 히스토리 목록</a> <span>|</span> <a href="/loadWifi">Open API 와이파이 정보

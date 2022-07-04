@@ -27,21 +27,18 @@ public class DBConnUtils {
     public static void closeConnection(Connection conn, Statement stmt, ResultSet rs, String name) {
         if (rs != null) try {
             rs.close();
-            System.out.println(name + " rs close");
         } catch (SQLException ex) {
-            System.out.println(name + " rs error");
+            System.out.println(name + " rs close error");
         }
         if (stmt != null) try {
             stmt.close();
-            System.out.println(name + " stmt close");
         } catch (SQLException ex) {
-            System.out.println(name + " stmt error");
+            System.out.println(name + " stmt close error");
         }
         if (conn != null) try {
             conn.close();
-            System.out.println(name + " conn close");
         } catch (SQLException ex) {
-            System.out.println(name + " conn error");
+            System.out.println(name + " conn close error");
         }
     }
 }

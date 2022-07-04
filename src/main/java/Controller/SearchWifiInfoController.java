@@ -16,7 +16,7 @@ public class SearchWifiInfoController implements IController {
     SearchWifiInfoService searchWifiInfoService;
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double lat = Double.parseDouble(request.getParameter("lat"));
         double lnt = Double.parseDouble(request.getParameter("lnt"));
 
@@ -29,14 +29,15 @@ public class SearchWifiInfoController implements IController {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('오류가 발생했습니다'); location.href='/';</script>");
             writer.close();
-        } else if (wifiInfoList.size() == 0) {
+        }
+        if (wifiInfoList.size() == 0) {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('와이파이 정보를 가져온 뒤, 다시 시도해 주세요'); location.href='/';</script>");
             writer.close();
-        } else {
-            request.setAttribute("list", wifiInfoList);
-            request.getRequestDispatcher("/WEB-INF/views/search.jsp").forward(request, response);
         }
+
+        request.setAttribute("list", wifiInfoList);
+        return new MyView("/WEB-INF/views/search.jsp");
     }
 }

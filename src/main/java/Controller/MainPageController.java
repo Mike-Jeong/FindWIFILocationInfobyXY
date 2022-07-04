@@ -7,9 +7,8 @@ import java.io.IOException;
 
 public class MainPageController implements IController {
 
-
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/Main.jsp").forward(request, response);
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        return new MyView("/WEB-INF/views/Main.jsp");
     }
 }

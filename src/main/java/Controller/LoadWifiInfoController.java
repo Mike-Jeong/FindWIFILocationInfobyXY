@@ -13,16 +13,16 @@ public class LoadWifiInfoController implements IController {
     LoadWifiInfoService loadWifiInfoService;
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         loadWifiInfoService = ApplicationConfig.getLoadWifiInfoService();
 
         int count = loadWifiInfoService.insertWifiINfo();
 
         if (count == -1) {
-            request.getRequestDispatcher("/WEB-INF/views/loadWifiFail.jsp").forward(request, response);
+            return new MyView("/WEB-INF/views/loadWifiFail.jsp");
         } else {
             request.setAttribute("wifiCount", count);
-            request.getRequestDispatcher("/WEB-INF/views/loadWifi.jsp").forward(request, response);
+            return new MyView("/WEB-INF/views/loadWifi.jsp");
         }
     }
 }

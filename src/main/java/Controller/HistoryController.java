@@ -16,7 +16,7 @@ public class HistoryController implements IController {
     HistoryService historyService;
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         historyService = ApplicationConfig.getHistoryService();
 
@@ -24,10 +24,11 @@ public class HistoryController implements IController {
 
         if (historyList == null) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('Error');</script>");
-        } else {
-            request.setAttribute("historyList", historyList);
-            request.getRequestDispatcher("/WEB-INF/views/history.jsp").forward(request, response);
+            out.println("<script>alert('Error'); location.href='/'; </script>");
+            out.close();
         }
+
+        request.setAttribute("historyList", historyList);
+        return new MyView("/WEB-INF/views/history.jsp");
     }
 }
