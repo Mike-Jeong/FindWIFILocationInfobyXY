@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 public class HistoryDeleteController implements IController {
     HistoryService historyService;
 
     @Override
-    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String lat = request.getParameter("lat");
-        String lnt = request.getParameter("lnt");
-        String date = request.getParameter("date");
+    public ModelView process(Map<String, String> paramMap) {
+        int id = Integer.parseInt(paramMap.get("id"));
+        String lat = paramMap.get("lat");
+        String lnt = paramMap.get("lnt");
+        String date = paramMap.get("date");
 
         historyService = ApplicationConfig.getHistoryService();
 
@@ -26,13 +27,14 @@ public class HistoryDeleteController implements IController {
 
         boolean result = historyService.deleteHistory(historyDto);
 
-        if (result) {
-            response.sendRedirect("/history");
+        ModelView mv;
+        if (!result) {
+            mv = new ModelView("error");
+            mv.getModel().put("ErrorMessage", "오류가 발생했습니다");
+        } else {
+            mv = new ModelView("redirect");
+            mv.getModel().put("path", "/history");
         }
-
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('Error'); location.href='/'; </script>");
-
-        return null;
+        return mv;
     }
 }

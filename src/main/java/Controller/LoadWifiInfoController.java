@@ -7,22 +7,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class LoadWifiInfoController implements IController {
 
     LoadWifiInfoService loadWifiInfoService;
 
     @Override
-    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public ModelView process(Map<String, String> paramMap) {
+
         loadWifiInfoService = ApplicationConfig.getLoadWifiInfoService();
 
         int count = loadWifiInfoService.insertWifiINfo();
 
+        ModelView mv;
         if (count == -1) {
-            return new MyView("/WEB-INF/views/loadWifiFail.jsp");
+            mv = new ModelView("loadWifiFail");
         } else {
-            request.setAttribute("wifiCount", count);
-            return new MyView("/WEB-INF/views/loadWifi.jsp");
+            mv = new ModelView("loadWifi");
+            mv.getModel().put("wifiCount", count);
         }
+        return mv;
     }
 }

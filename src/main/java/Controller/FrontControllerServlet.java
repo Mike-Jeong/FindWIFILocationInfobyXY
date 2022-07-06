@@ -33,10 +33,27 @@ public class FrontControllerServlet extends HttpServlet {
             return;
         }
 
-        MyView myView = controller.process(request, response);
+        HashMap<String, String> paramMap = createParamMap(request);
+        ModelView mv = controller.process(paramMap);
 
-        if (myView != null) {
-            myView.render(request, response);
+        String viewName = mv.getViewName();
+
+        if (viewName.equals("redirect")) {
+            response.sendRedirect((String)mv.getModel().get("path"));
+        } else {
+            MyView myView = viewResolver(viewName);
+            myView.render(mv.getModel(), request, response);
         }
+    }
+
+    private HashMap<String, String> createParamMap(HttpServletRequest request) {
+        HashMap<String, String> paramMap = new HashMap<>();
+        request.getParameterNames().asIterator()
+                .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
+        return paramMap;
+    }
+
+    private MyView viewResolver(String viewName) {
+        return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 }

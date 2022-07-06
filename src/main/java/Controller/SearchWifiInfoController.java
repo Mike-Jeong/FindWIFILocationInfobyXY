@@ -10,34 +10,32 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SearchWifiInfoController implements IController {
 
     SearchWifiInfoService searchWifiInfoService;
 
     @Override
-    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        double lat = Double.parseDouble(request.getParameter("lat"));
-        double lnt = Double.parseDouble(request.getParameter("lnt"));
+    public ModelView process(Map<String, String> paramMap) {
+        double lat = Double.parseDouble(paramMap.get("lat"));
+        double lnt = Double.parseDouble(paramMap.get("lnt"));
 
         searchWifiInfoService = ApplicationConfig.getSearchWifiInfoService();
 
         ArrayList<WifiInfoDto> wifiInfoList = searchWifiInfoService.getWifiInfoList(lat, lnt);
 
+        ModelView mv;
         if (wifiInfoList == null) {
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter writer = response.getWriter();
-            writer.println("<script>alert('오류가 발생했습니다'); location.href='/';</script>");
-            writer.close();
+            mv = new ModelView("error");
+            mv.getModel().put("ErrorMessage", "오류가 발생했습니다");
+        } else if (wifiInfoList.size() == 0) {
+            mv = new ModelView("error");
+            mv.getModel().put("ErrorMessage", "와이파이 정보를 가져온 뒤, 다시 시도해 주세요");
+        } else {
+            mv = new ModelView("search");
+            mv.getModel().put("list", wifiInfoList);
         }
-        if (wifiInfoList.size() == 0) {
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter writer = response.getWriter();
-            writer.println("<script>alert('와이파이 정보를 가져온 뒤, 다시 시도해 주세요'); location.href='/';</script>");
-            writer.close();
-        }
-
-        request.setAttribute("list", wifiInfoList);
-        return new MyView("/WEB-INF/views/search.jsp");
+        return mv;
     }
 }

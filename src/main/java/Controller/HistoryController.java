@@ -10,25 +10,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class HistoryController implements IController {
 
     HistoryService historyService;
 
     @Override
-    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public ModelView process(Map<String, String> paramMap) {
 
         historyService = ApplicationConfig.getHistoryService();
 
         ArrayList<HistoryDto> historyList = historyService.getHistory();
 
+        ModelView mv;
         if (historyList == null) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('Error'); location.href='/'; </script>");
-            out.close();
+            mv = new ModelView("error");
+            mv.getModel().put("ErrorMessage", "오류가 발생했습니다");
+        } else {
+            mv = new ModelView("history");
+            mv.getModel().put("historyList", historyList);
         }
-
-        request.setAttribute("historyList", historyList);
-        return new MyView("/WEB-INF/views/history.jsp");
+        return mv;
     }
 }
